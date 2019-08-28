@@ -1,0 +1,27 @@
+{
+  "name": "gnostic-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/gnostic-app/gnostic-server.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/gnostic-app/gnostic-server/issues"
+  },
+  "homepage": "https://gitlab.com/gnostic-app/gnostic-server#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "lodash": "^4.17.15",
+    "mongo": "^0.1.0",
+    "mongoose": "^5.6.11"
+  }
+}
