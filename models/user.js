@@ -1,15 +1,28 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-var userSchema = mongoose.Schema({
+var userSchema = new mongoose.Schema({
 
-    username: { type: String, required: true, trim: true },
-    password: { type: String, required: true, trim: true },
-    name: { type: String, required: true, trim: true },
-    surname: { type: String, required: true, trim: true }
+    name: { 
+        type: String,
+        required: true, 
+        min: 6,
+        max: 255
+    },
+    email: { 
+        type: String,
+        required: true, 
+        max: 256
+    },
+    password: { 
+        type: String,
+        required: true, 
+        min: 6,
+        max: 1024
+    }
 
 },
 {
     timestamps: true
 });
 
-module.exports = mongoose.model('Note', noteSchema);
+module.exports = mongoose.model('User', userSchema);
