@@ -1,21 +1,31 @@
-/*
-first run this command: 
-sudo ifconfig lo0 alias 123.123.123.123/24
-*/
-var express = require('express');
-var app = express();
+const express = require('express');
+const app = express();
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+const dotenv = require('dotenv');
 
-var bodyParser = require('body-parser');
+// import Routes
+const authRoute = require('./routes/auth');
+const registerRoute = require('./routes/register');
 
-var mongoose = require('mongoose');
-mongoose.connect('mongodb://123.123.123.123/notes');
+// read config from .env file
+dotenv.config();
 
+// initialize bodyParser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
     extended: true
 }));
 
-var notes = require('./routes/note.js')(app);
+// connect DB
+mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true}, () => console.log('connected to db!'));
+
+// middleware
+app.use(express.json());
+
+// route middlewares
+app.use('/api/user', authRoute);
+app.use('/api/user', registerRoute);
 
 var server = app.listen(3001, function () {
     console.log('Server running at http://127.0.0.1:3001/');
