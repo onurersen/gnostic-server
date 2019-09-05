@@ -1,5 +1,3 @@
-[![Build Status](https://gitlab.com/onurersen/gnostic-app/gnostic-server/badges/master/build.svg)](https://gitlab.com/onurersen/gnostic-app/gnostic-server/commits/master) 
-
 **What... is this thing?**
 
 This is a simple web back-end to store notes (you may call "sentences") with a tagging mechanism.  
