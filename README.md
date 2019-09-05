@@ -33,4 +33,5 @@ it becomes harder to manage those visually beautiful maps.
 Then I made up my mind for creating something text-based, something easy to use and acces whatever I want quickly.  
 
 **What does gnostic mean?**
+
 One who has knowledge of the spiritual. 🤓 🧠
