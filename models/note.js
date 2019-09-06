@@ -1,15 +1,27 @@
-var mongoose = require('mongoose');
+const mongoose = require('mongoose');
 
-const noteSchema = mongoose.Schema({
+var noteSchema = new mongoose.Schema({
 
-    topic: { type: String, required: true, trim: true },
-    description: { type: String, required: true, trim: true },
+    topic: { 
+        type: String, 
+        required: true, 
+        trim: true,
+        min: 2,
+        max: 255
+    },
+    description: { 
+        type: String, 
+        required: true, 
+        trim: true,
+        min: 2,
+        max: 255
+    },
     tags: {
-        type: String,
+        type: Array,
         required: true,
         validate: v => v == null || v.length > 0
     }
-    
+
 },
 {
     timestamps: true
