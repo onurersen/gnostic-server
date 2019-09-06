@@ -5,8 +5,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 // import Routes
-const authRoute = require('./routes/auth');
 const registerRoute = require('./routes/register');
+const authRoute = require('./routes/auth');
+const noteRoute = require('./routes/note');
 
 // read config from .env file
 dotenv.config();
@@ -26,6 +27,7 @@ app.use(express.json());
 // route middlewares
 app.use('/api/user', authRoute);
 app.use('/api/user', registerRoute);
+app.use('/api/note', noteRoute);
 
 var server = app.listen(3001, function () {
     console.log('Server running at http://127.0.0.1:3001/');

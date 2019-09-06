@@ -1,75 +1,39 @@
-var _ = require('lodash');
-var Note = require('../models/note.js').default;
+const router = require('express').Router();
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const Note = require('../models/Note');
+const verifyToken = require('../security/token');
+const { noteValidation } = require('../validator/note');
 
-module.exports = function(app) {
+// save note
+router.post('/save', verifyToken , async (req, res) => {
 
-    /* Create */
-    app.post('/note', function (req, res) {
-        var newNote = new Note(req.body);
-        newNote.save(function(err) {
-            if (err) {
-                res.json({info: 'error during note create', error: err});
-            };
-            res.json({info: 'note created successfully'});
-        });
+    const {error} = noteValidation(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    // check if note exists
+    const noteExist = await Note.findOne({
+        $or: [{
+            description: req.body.description
+        }, {
+            topic: req.body.topic
+        }]
+    });
+    if(noteExist) return res.status(400).send('Note already exists');
+
+    const note = new Note({
+        topic: req.body.topic,
+        description: req.body.description,
+        tags: req.body.tags
     });
 
-    /* Read */
-    app.get('/note', function (req, res) {
-        Note.find(function(err, notes) {
-            if (err) {
-                res.json({info: 'error during finding notes', error: err});
-            };
-            res.json({info: 'notes found successfully', data: notes});
-        });
-    });
+    try {
+        const savedNote = await note.save();
+        res.send({note: note._id});
+    } catch (err) {
+        res.status(400).send(err);
+    }
 
-    app.get('/note/:id', function (req, res) {
-        Note.findById(req.params.id, function(err, note) {
-            if (err) {
-                res.json({info: 'error during finding note', error: err});
-            };
-            if (note) {
-                // res.json({info: 'note found successfully', data: note});
-                setTimeout(function(){
-                    res.json({info: 'note found successfully', data: note});
-                }, 10000);
-            } else {
-                res.json({info: 'note not found'});
-            }
-        });
-    });
+});
 
-    /* Update */
-    app.put('/note/:id', function (req, res) {
-        Note.findById(req.params.id, function(err, note) {
-            if (err) {
-                res.json({info: 'error during finding note', error: err});
-            };
-            if (note) {
-                _.merge(note, req.body);
-                note.save(function(err) {
-                    if (err) {
-                        res.json({info: 'error during updating note', error: err});
-                    };
-                    res.json({info: 'note updated successfully'});
-                });
-            } else {
-                res.json({info: 'note not found'});
-            }
-
-        });
-    });
-
-    /* Delete */
-    app.delete('/note/:id', function (req, res) {
-        Note.findByIdAndRemove(req.params.id, function(err) {
-            if (err) {
-                res.json({info: 'error during removing note', error: err});
-            };
-            res.json({info: 'note removed successfully'});
-        });
-    });
-
-
-};
+module.exports = router;
