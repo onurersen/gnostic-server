@@ -3,6 +3,8 @@
 This is a simple web back-end to store notes (you may call "sentences") with a tagging mechanism.  
 Any client can connect and create new notes via this back-end.
 
+![picture alt](https://onurersen.gitlab.io/img/gnostic-illustration.png)
+
 **Why did i create such a thing?**
 
 I literally like to take notes during learning something, reading a book, watching a movie so on and so forth. 🗒️ 📰 🎥
