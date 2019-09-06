@@ -7,6 +7,7 @@ const verifyToken = require('../security/token');
 const { noteCreateValidation } = require('../validator/note');
 const { noteUpdateValidation } = require('../validator/note');
 const { noteDeleteValidation } = require('../validator/note');
+const { noteFindValidation } = require('../validator/note');
 
 router.post('/create', verifyToken , async (req, res) => {
 
@@ -63,6 +64,26 @@ router.post('/update', verifyToken , async (req, res) => {
             }
         );
         res.send({note: noteId});
+    } catch (err) {
+        res.status(400).send(err);
+    }
+
+});
+
+router.post('/find', verifyToken , async (req, res) => {
+
+    const {error} = noteFindValidation(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+    const noteExist = await Note.find({
+        "tags": {
+            "$regex": req.body.tag, 
+            "$options": "i"
+        } 
+    });
+    if(!noteExist) return res.status(400).send('Note does not exist');
+
+    try {
+        res.send({notes: noteExist});
     } catch (err) {
         res.status(400).send(err);
     }
