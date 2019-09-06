@@ -3,6 +3,7 @@ const Joi = require('@hapi/joi');
 // note validation
 const noteValidation = (data) => {
     const schema = {
+        _id: Joi.string(),
         topic: Joi.string().min(2).required(),
         description: Joi.string().min(2).required(),
         tags: Joi.array().items(Joi.string())

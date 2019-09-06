@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 var noteSchema = new mongoose.Schema({
-
+ 
     topic: { 
         type: String, 
         required: true, 
