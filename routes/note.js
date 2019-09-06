@@ -4,17 +4,17 @@ const jwt = require('jsonwebtoken');
 const mongoose = require('mongoose');
 const Note = require('../models/Note');
 const verifyToken = require('../security/token');
-const { noteValidation } = require('../validator/note');
+const { noteCreateValidation } = require('../validator/note');
+const { noteUpdateValidation } = require('../validator/note');
+const { noteDeleteValidation } = require('../validator/note');
 
-// save note
-router.post('/save', verifyToken , async (req, res) => {
+router.post('/create', verifyToken , async (req, res) => {
 
-    const {error} = noteValidation(req.body);
+    const {error} = noteCreateValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
-    // check if note exists
     const noteExist = await Note.findOne({
-        $or: [{
+        $and: [{
             description: req.body.description
         }, {
             topic: req.body.topic
@@ -37,10 +37,9 @@ router.post('/save', verifyToken , async (req, res) => {
 
 });
 
-// save note
 router.post('/update', verifyToken , async (req, res) => {
 
-    const {error} = noteValidation(req.body);
+    const {error} = noteUpdateValidation(req.body);
     if(error) return res.status(400).send(error.details[0].message);
 
     const noteExist = await Note.findOne({_id: req.body._id});
@@ -64,6 +63,23 @@ router.post('/update', verifyToken , async (req, res) => {
             }
         );
         res.send({note: noteId});
+    } catch (err) {
+        res.status(400).send(err);
+    }
+
+});
+
+router.post('/delete', verifyToken , async (req, res) => {
+
+    const {error} = noteDeleteValidation(req.body);
+    if(error) return res.status(400).send(error.details[0].message);
+
+    const noteExist = await Note.findOne({_id: req.body._id});
+    if(!noteExist) return res.status(400).send('Note does not exist');
+
+    try {
+        const deletedNote = await Note.deleteOne({_id: noteExist._id});
+        res.send({note: req.body._id});
     } catch (err) {
         res.status(400).send(err);
     }
