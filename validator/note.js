@@ -9,6 +9,14 @@ const noteCreateValidation = (data) => {
     return Joi.validate(data, schema);
 };
 
+const noteFindValidation = (data) => {
+    const schema = {
+        tag: Joi.string().min(3).required()
+    };
+    return Joi.validate(data, schema);
+};
+
+
 const noteUpdateValidation = (data) => {
     const schema = {
         _id: Joi.string().required(),
@@ -27,5 +35,6 @@ const noteDeleteValidation = (data) => {
 };
 
 module.exports.noteCreateValidation = noteCreateValidation;
+module.exports.noteFindValidation = noteFindValidation;
 module.exports.noteUpdateValidation = noteUpdateValidation;
 module.exports.noteDeleteValidation = noteDeleteValidation;
