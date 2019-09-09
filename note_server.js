@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 // import Routes
-const registerRoute = require('./routes/register');
-const authRoute = require('./routes/auth');
-const noteRoute = require('./routes/note');
+const userRoute = require('./routes/user/user');
+const authRoute = require('./routes/user/auth');
+const noteRoute = require('./routes/note/note');
 
 // read config from .env file
 dotenv.config();
@@ -26,7 +26,7 @@ app.use(express.json());
 
 // route middlewares
 app.use('/api/user', authRoute);
-app.use('/api/user', registerRoute);
+app.use('/api/user', userRoute);
 app.use('/api/note', noteRoute);
 
 var server = app.listen(3001, function () {
