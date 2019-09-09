@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
-const verifyToken = require('../../security/token');
-const User = require('../../models/User');
-const { userRegisterValidation } = require('../../validator/user');
-const { userUpdateValidation } = require('../../validator/user');
-const { userFindValidation } = require('../../validator/user');
+const verifyToken = require('../security/token');
+const User = require('../models/User');
+const { userRegisterValidation } = require('../validator/user');
+const { userUpdateValidation } = require('../validator/user');
+const { userFindValidation } = require('../validator/user');
 
 router.post('/register', async (req, res) => {
 
