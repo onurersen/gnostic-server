@@ -1,11 +1,11 @@
 const router = require('express').Router();
 const mongoose = require('mongoose');
-const Note = require('../../models/Note');
-const verifyToken = require('../../security/token');
-const { noteCreateValidation } = require('../../validator/note');
-const { noteUpdateValidation } = require('../../validator/note');
-const { noteDeleteValidation } = require('../../validator/note');
-const { noteFindValidation } = require('../../validator/note');
+const Note = require('../models/Note');
+const verifyToken = require('../security/token');
+const { noteCreateValidation } = require('../validator/note');
+const { noteUpdateValidation } = require('../validator/note');
+const { noteDeleteValidation } = require('../validator/note');
+const { noteFindValidation } = require('../validator/note');
 
 router.post('/create', verifyToken , async (req, res) => {
 

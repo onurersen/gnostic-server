@@ -5,9 +5,9 @@ const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 
 // import Routes
-const userRoute = require('./routes/user/user');
-const authRoute = require('./routes/user/auth');
-const noteRoute = require('./routes/note/note');
+const userRoute = require('./routes/user');
+const authRoute = require('./routes/login');
+const noteRoute = require('./routes/note'); 
 
 // read config from .env file
 dotenv.config();
@@ -25,7 +25,7 @@ mongoose.connect(process.env.DB_CONNECT, {useNewUrlParser: true}, () => console.
 app.use(express.json());
 
 // route middlewares
-app.use('/api/user', authRoute);
+app.use('/api/login', authRoute);
 app.use('/api/user', userRoute);
 app.use('/api/note', noteRoute);
 
