@@ -29,7 +29,7 @@ router.post('/create', verifyToken , async (req, res) => {
 
     try {
         const savedNote = await note.save();
-        res.send({note: note._id});
+        res.status(200).send({note: note._id});
     } catch (err) {
         res.status(400).send(err);
     }
@@ -61,7 +61,7 @@ router.post('/update', verifyToken , async (req, res) => {
                 if (err) throw err;
             }
         );
-        res.send({note: noteId});
+        res.status(200).send({note: noteId});
     } catch (err) {
         res.status(400).send(err);
     }
@@ -81,7 +81,7 @@ router.post('/find', verifyToken , async (req, res) => {
     if(!noteExist) return res.status(400).send('Note does not exist');
 
     try {
-        res.send({notes: noteExist});
+        res.status(200).send({notes: noteExist});
     } catch (err) {
         res.status(400).send(err);
     }
@@ -98,7 +98,7 @@ router.post('/delete', verifyToken , async (req, res) => {
 
     try {
         const deletedNote = await Note.deleteOne({_id: noteExist._id});
-        res.send({note: req.body._id});
+        res.status(200).send({note: req.body._id});
     } catch (err) {
         res.status(400).send(err);
     }

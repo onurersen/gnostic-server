@@ -13,7 +13,7 @@ router.post('/register', async (req, res) => {
     if(error) return res.status(400).send(error.details[0].message);
 
     const emailExist = await User.findOne({email: req.body.email});
-    if(emailExist) return res.status(400).send('Email already exists');
+    if(emailExist) return res.status(400).send('User already exists');
 
     const salt = await bcrypt.genSalt(10);
     const hashPassword = await bcrypt.hash(req.body.password, salt);
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
 
     try {
         const savedUser = await user.save();
-        res.send({user: user._id});
+        res.status(200).send({user: user._id});
     } catch (err) {
         res.status(400).send(err);
     }
@@ -62,7 +62,7 @@ router.post('/update', verifyToken , async (req, res) => {
                 if (err) throw err;
             }
         );
-        res.send({user: userId});
+        res.status(200).send({user: userId});
     } catch (err) {
         res.status(400).send(err);
     }
@@ -77,7 +77,7 @@ router.post('/find', verifyToken , async (req, res) => {
     if(!userExist) return res.status(400).send('User does not exist');
 
     try {
-        res.send(userExist);
+        res.status(200).send(userExist);
     } catch (err) {
         res.status(400).send(err);
     }
@@ -94,7 +94,7 @@ router.post('/delete', verifyToken , async (req, res) => {
 
     try {
         const deletedUser = await User.deleteOne({_id: userExist._id});
-        res.send({user: req.body._id});
+        res.status(200).send({user: req.body._id});
     } catch (err) {
         res.status(400).send(err);
     }
