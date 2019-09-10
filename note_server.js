@@ -3,6 +3,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const swaggerUi = require('swagger-ui-express'), swaggerDocument = require('./swagger.json');
 
 // import Routes
 const userRoute = require('./routes/user');
@@ -29,6 +30,8 @@ app.use('/api/login', authRoute);
 app.use('/api/user', userRoute);
 app.use('/api/note', noteRoute);
 
-var server = app.listen(3001, function () {
-    console.log('Server running at http://127.0.0.1:3001/');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
+var server = app.listen(3000, function () {
+    console.log('Server running at http://127.0.0.1:3000/');
 });

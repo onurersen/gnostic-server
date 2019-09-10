@@ -1,0 +1,484 @@
+{
+    "swagger" : "2.0",
+    "info" : {
+      "description" : "Gnostic Server API",
+      "version" : "1.0.0",
+      "title" : "Gnostic Server",
+      "contact" : {
+        "email" : "onurersen@gmail.com"
+      },
+      "license" : {
+        "name" : "Apache 2.0",
+        "url" : "http://www.apache.org/licenses/LICENSE-2.0.html"
+      }
+    },
+    "host" : "virtserver.swaggerhub.com",
+    "basePath" : "/Nesre-Runo/gnostic-server/1.0.0",
+    "tags" : [ {
+      "name" : "admins",
+      "description" : "Secured Admin-only calls"
+    }, {
+      "name" : "clients",
+      "description" : "Operations available to regular developers"
+    } ],
+    "schemes" : [ "https" ],
+    "paths" : {
+      "/api/user/register" : {
+        "post" : {
+          "tags" : [ "admins" ],
+          "summary" : "Register a new user",
+          "description" : "Registers a new user in the system",
+          "operationId" : "registerUser",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "body",
+            "description" : "User object that needs to be added to the store",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/RegisterUserRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User created",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      },
+      "/api/user/update" : {
+        "post" : {
+          "tags" : [ "admins" ],
+          "summary" : "Update a user",
+          "description" : "Updates an existing user in the system",
+          "operationId" : "updateUser",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "Update user",
+            "description" : "Name of user",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/UpdateUserRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User updated",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      },
+      "/api/user/find" : {
+        "post" : {
+          "tags" : [ "admins" ],
+          "summary" : "Find a user",
+          "description" : "Finds an existing user in the system",
+          "operationId" : "findUser",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "Find user",
+            "description" : "Name of user",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/FindUserRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User found",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      },
+      "/api/user/delete" : {
+        "post" : {
+          "tags" : [ "admins" ],
+          "summary" : "Delete a user",
+          "description" : "Deletes an existing user in the system",
+          "operationId" : "deleteUser",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "Delete user",
+            "description" : "Name of user",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/DeleteUserRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "User deleted",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      },
+      "/api/note/create" : {
+        "post" : {
+          "tags" : [ "clients" ],
+          "summary" : "Create a new note",
+          "description" : "Creates a new note in the system",
+          "operationId" : "createNote",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "body",
+            "description" : "Note object that needs to be added to the store",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/CreateNoteRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Note created",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      },
+      "/api/note/update" : {
+        "post" : {
+          "tags" : [ "clients" ],
+          "summary" : "Update a note",
+          "description" : "Updates an existing note in the system",
+          "operationId" : "updateNote",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "Create note",
+            "description" : "Name of note",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/UpdateNoteRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Note updated",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      },
+      "/api/note/find" : {
+        "post" : {
+          "tags" : [ "clients" ],
+          "summary" : "Find related notes",
+          "description" : "Finds related notes in the system",
+          "operationId" : "findNote",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "Register user",
+            "description" : "Name of user",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/FindNoteRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Notes found",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      },
+      "/api/note/delete" : {
+        "post" : {
+          "tags" : [ "clients" ],
+          "summary" : "Delete a note",
+          "description" : "Deletes an existing note in the system",
+          "operationId" : "deleteNote",
+          "consumes" : [ "application/json" ],
+          "produces" : [ "application/json" ],
+          "parameters" : [ {
+            "in" : "body",
+            "name" : "Delete note",
+            "description" : "Name of user",
+            "required" : false,
+            "schema" : {
+              "$ref" : "#/definitions/DeleteNoteRequest"
+            }
+          } ],
+          "responses" : {
+            "200" : {
+              "description" : "Note deleted",
+              "schema" : {
+                "type" : "string"
+              }
+            },
+            "400" : {
+              "description" : "Error in request"
+            }
+          }
+        }
+      }
+    },
+    "definitions" : {
+      "RegisterUserRequest" : {
+        "type" : "object",
+        "required" : [ "email", "name", "password" ],
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "John Doe"
+          },
+          "email" : {
+            "type" : "string",
+            "example" : "johndoe@gmail.com"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "12345678"
+          }
+        }
+      },
+      "UpdateUserRequest" : {
+        "type" : "object",
+        "required" : [ "_id", "email", "name", "password" ],
+        "properties" : {
+          "_id" : {
+            "type" : "string",
+            "example" : "5d761331cac80308479b7982"
+          },
+          "name" : {
+            "type" : "string",
+            "example" : "John Doe"
+          },
+          "email" : {
+            "type" : "string",
+            "example" : "johndoe@gmail.com"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "12345678"
+          }
+        }
+      },
+      "FindUserRequest" : {
+        "type" : "object",
+        "required" : [ "email" ],
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "example" : "johndoe@gmail.com"
+          }
+        }
+      },
+      "DeleteUserRequest" : {
+        "type" : "object",
+        "required" : [ "_id" ],
+        "properties" : {
+          "_id" : {
+            "type" : "string",
+            "example" : "5d761331cac80308479b7982"
+          }
+        }
+      },
+      "CreateNoteRequest" : {
+        "type" : "object",
+        "required" : [ "description", "tags", "topic" ],
+        "properties" : {
+          "topic" : {
+            "type" : "string",
+            "example" : "sample topic"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : "sample description"
+          },
+          "tags" : {
+            "type" : "array",
+            "example" : [ "tag1", "tag2", "tag3" ],
+            "items" : {
+              "type" : "object",
+              "properties" : { }
+            }
+          }
+        }
+      },
+      "UpdateNoteRequest" : {
+        "type" : "object",
+        "required" : [ "_id", "description", "tags", "topic" ],
+        "properties" : {
+          "_id" : {
+            "type" : "string",
+            "example" : "5d761331cac80308479b7982"
+          },
+          "topic" : {
+            "type" : "string",
+            "example" : "sample topic"
+          },
+          "description" : {
+            "type" : "string",
+            "example" : "sample description"
+          },
+          "tags" : {
+            "type" : "array",
+            "items" : {
+              "type" : "object",
+              "example" : [ "tag1", "tag2", "tag3" ],
+              "properties" : { }
+            }
+          }
+        }
+      },
+      "FindNoteRequest" : {
+        "type" : "object",
+        "properties" : {
+          "email" : {
+            "type" : "string",
+            "example" : "sample tag"
+          }
+        }
+      },
+      "DeleteNoteRequest" : {
+        "type" : "object",
+        "required" : [ "_id" ],
+        "properties" : {
+          "_id" : {
+            "type" : "string",
+            "example" : "5d761331cac80308479b7982"
+          }
+        }
+      },
+      "RegisterUserResponse" : {
+        "type" : "object",
+        "properties" : {
+          "user" : {
+            "type" : "string"
+          }
+        },
+        "title" : "RegisterUserReponse",
+        "description" : "Describes the result of registered a user"
+      },
+      "UpdateUserResponse" : {
+        "type" : "object",
+        "properties" : {
+          "user" : {
+            "type" : "string"
+          }
+        },
+        "title" : "UpdateUserResponse",
+        "description" : "Describes the result of updated user"
+      },
+      "FindUserResponse" : {
+        "type" : "object",
+        "properties" : {
+          "name" : {
+            "type" : "string",
+            "example" : "John Doe"
+          },
+          "email" : {
+            "type" : "string",
+            "example" : "johndoe@gmail.com"
+          },
+          "password" : {
+            "type" : "string",
+            "example" : "12345678"
+          }
+        },
+        "title" : "FindUserResponse",
+        "description" : "Describes the result of find user"
+      },
+      "DeleteUserResponse" : {
+        "type" : "object",
+        "properties" : {
+          "user" : {
+            "type" : "string"
+          }
+        },
+        "title" : "DeleteUserResponse",
+        "description" : "Describes the result of deleted user"
+      },
+      "CreateNoteResponse" : {
+        "type" : "object",
+        "properties" : {
+          "note" : {
+            "type" : "string"
+          }
+        },
+        "title" : "CreateNoteResponse",
+        "description" : "Describes the result of a note creation"
+      },
+      "UpdateNoteResponse" : {
+        "type" : "object",
+        "properties" : {
+          "note" : {
+            "type" : "string"
+          }
+        },
+        "title" : "UpdateNoteResponse",
+        "description" : "Describes the result of updated note"
+      },
+      "FindNoteResponse" : {
+        "title" : "FindNoteResponse",
+        "type" : "array",
+        "description" : "Describes the result of find note",
+        "items" : {
+          "type" : "object",
+          "properties" : { }
+        }
+      },
+      "DeleteNoteResponse" : {
+        "type" : "object",
+        "properties" : {
+          "note" : {
+            "type" : "string"
+          }
+        },
+        "title" : "DeleteNoteResponse",
+        "description" : "Describes the result of deleted note"
+      }
+    }
+  }
